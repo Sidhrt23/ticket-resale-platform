@@ -158,16 +158,17 @@ export default function Home({ initialEvents }) {
   );
 }
 
-// Add server-side rendering
+// Replace the getServerSideProps function with this:
 export async function getServerSideProps() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/events`);
+    // Import the database connection directly
+    const { pool } = await import('../lib/db');
     
-    if (!response.ok) {
-      throw new Error('Failed to fetch events');
-    }
+    // Query database directly instead of making API request
+    const result = await pool.query('SELECT * FROM events ORDER BY date');
     
-    const events = await response.json();
+    // Need to serialize Date objects for Next.js props
+    const events = JSON.parse(JSON.stringify(result.rows));
     
     return {
       props: {

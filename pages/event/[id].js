@@ -105,18 +105,16 @@ export default function EventDetail({ event, sellers, error }) {
   );
 }
 
+// Replace the getServerSideProps function with this:
 export async function getServerSideProps({ params }) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    // Import the database connection directly
+    const { pool } = await import('../../lib/db');
     
-    // Fetch event details
-    const eventResponse = await fetch(`${baseUrl}/api/events?id=${params.id}`);
-    if (!eventResponse.ok) {
-      throw new Error('Failed to fetch event details');
-    }
-    const eventData = await eventResponse.json();
+    // Query event details directly
+    const eventResult = await pool.query('SELECT * FROM events WHERE id = $1', [params.id]);
     
-    if (!eventData || eventData.length === 0) {
+    if (eventResult.rows.length === 0) {
       return {
         props: {
           event: null,
@@ -126,17 +124,17 @@ export async function getServerSideProps({ params }) {
       };
     }
     
-    // Fetch sellers for this event
-    const sellerResponse = await fetch(`${baseUrl}/api/sellers?event_id=${params.id}`);
-    if (!sellerResponse.ok) {
-      throw new Error('Failed to fetch sellers');
-    }
-    const sellersData = await sellerResponse.json();
+    // Query sellers directly
+    const sellersResult = await pool.query('SELECT * FROM sellers WHERE event_id = $1', [params.id]);
+    
+    // Serialize for Next.js props
+    const event = JSON.parse(JSON.stringify(eventResult.rows[0]));
+    const sellers = JSON.parse(JSON.stringify(sellersResult.rows));
     
     return {
       props: {
-        event: eventData[0],
-        sellers: sellersData,
+        event,
+        sellers,
         error: null
       }
     };
@@ -146,7 +144,7 @@ export async function getServerSideProps({ params }) {
       props: {
         event: null,
         sellers: [],
-        error: error.message || 'Failed to load data'
+        error: 'Failed to fetch event data'
       }
     };
   }
