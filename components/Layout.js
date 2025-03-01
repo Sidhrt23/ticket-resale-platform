@@ -34,7 +34,7 @@ export default function Layout({ children, title = 'Ticket Resale Platform' }) {
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="text-3xl font-extrabold text-white flex items-center">
             <span className="bg-gradient-to-r from-red-600 to-purple-600 bg-clip-text text-transparent">Ticket</span>
-            <span className="text-white">Flip</span>
+            <span className="text-white">Rush</span>
           </Link>
           
           <Link 
@@ -63,7 +63,7 @@ export default function Layout({ children, title = 'Ticket Resale Platform' }) {
             <div className="mb-8 md:mb-0">
               <p className="text-2xl font-bold">
                 <span className="bg-gradient-to-r from-red-600 to-purple-600 bg-clip-text text-transparent">Ticket</span>
-                <span className="text-white">Flip</span>
+                <span className="text-white">Rush</span>
               </p>
               <p className="text-gray-400 text-sm mt-2">Connecting fans since 2024</p>
             </div>
