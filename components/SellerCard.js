@@ -13,7 +13,7 @@ export default function SellerCard({ seller, eventDate }) {
     <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl border border-gray-100 relative">
       {/* Price tag - positioned as a badge */}
       <div className="absolute top-4 right-4 bg-gradient-to-r from-red-600 to-purple-600 text-white font-bold px-4 py-2 rounded-lg shadow-md">
-        ${parseFloat(seller.price).toFixed(2)}
+        INR{parseFloat(seller.price).toFixed(2)}
       </div>
       
       <div className="p-6 pt-16">
