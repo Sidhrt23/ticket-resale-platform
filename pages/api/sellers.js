@@ -25,11 +25,11 @@ export default async function handler(req, res) {
     
     case 'POST':
       try {
-        const { event_id, name, price, city, whatsapp, tickets_available } = req.body;
+        const { event_id, name, price, city, whatsapp, tickets_available, ticket_details } = req.body;
         
         const { rows } = await query(
-          'INSERT INTO sellers (event_id, name, price, city, whatsapp, tickets_available) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-          [event_id, name, price, city, whatsapp, tickets_available || 1]
+          'INSERT INTO sellers (event_id, name, price, city, whatsapp, tickets_available, ticket_details) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+          [event_id, name, price, city, whatsapp, tickets_available || 1, ticket_details || null]
         );
         
         res.status(201).json(rows[0]);

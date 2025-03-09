@@ -19,6 +19,7 @@ export default function SellTicket() {
   const [sellerCity, setSellerCity] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [ticketsAvailable, setTicketsAvailable] = useState(1);
+  const [ticketDetails, setTicketDetails] = useState('');
   
   // Form states for new event
   const [eventName, setEventName] = useState('');
@@ -97,6 +98,7 @@ export default function SellTicket() {
           city: sellerCity,
           whatsapp,
           tickets_available: parseInt(ticketsAvailable),
+          ticket_details: ticketDetails
         }),
       });
       
@@ -372,6 +374,23 @@ export default function SellTicket() {
                     min="1"
                     className="w-full px-4 py-3 bg-gray-700 border-0 text-white rounded-xl focus:ring-2 focus:ring-purple-500 transition"
                   />
+                </div>
+                
+                <div className="md:col-span-2">
+                  <label htmlFor="ticketDetails" className="block text-sm font-medium text-gray-300 mb-2">
+                    Ticket Details (section, row, seat type, etc.)
+                  </label>
+                  <textarea
+                    id="ticketDetails"
+                    value={ticketDetails}
+                    onChange={(e) => setTicketDetails(e.target.value)}
+                    className="w-full px-4 py-3 bg-gray-700 border-0 text-white rounded-xl focus:ring-2 focus:ring-purple-500 transition"
+                    placeholder="Enter details about the tickets (e.g., Section A, Row 3, VIP access, etc.)"
+                    rows="3"
+                  ></textarea>
+                  <p className="text-sm text-gray-400 mt-2">
+                    Provide details about seat location, ticket type, and any special features.
+                  </p>
                 </div>
               </div>
               

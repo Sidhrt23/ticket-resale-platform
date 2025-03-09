@@ -76,6 +76,22 @@ export default function SellerCard({ seller, eventDate }) {
               </div>
             </div>
           </div>
+          
+          {seller.ticket_details && (
+            <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 md:col-span-2">
+              <div className="flex items-start text-gray-700">
+                <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3 flex-shrink-0">
+                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500 font-medium">Ticket Details</p>
+                  <p className="text-sm font-semibold whitespace-pre-line">{seller.ticket_details}</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         
         <a 
