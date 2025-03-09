@@ -164,8 +164,16 @@ export async function getServerSideProps() {
     // Import the database connection directly
     const { pool } = await import('../lib/db');
     
-    // Query database directly instead of making API request
-    const result = await pool.query('SELECT * FROM events ORDER BY date');
+    // Query database with the same query used in the API endpoint
+    const result = await pool.query(`
+      SELECT e.*, 
+             COUNT(s.id) AS seller_count,
+             COALESCE(SUM(s.tickets_available), 0) AS ticket_count
+      FROM events e
+      LEFT JOIN sellers s ON e.id = s.event_id
+      GROUP BY e.id
+      ORDER BY e.date
+    `);
     
     // Need to serialize Date objects for Next.js props
     const events = JSON.parse(JSON.stringify(result.rows));
