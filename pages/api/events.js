@@ -8,7 +8,9 @@ export default async function handler(req, res) {
         const { city, date, name, id } = req.query;
         
         let queryText = `
-          SELECT e.*, COUNT(s.id) AS seller_count
+          SELECT e.*, 
+                 COUNT(s.id) AS seller_count,
+                 COALESCE(SUM(s.tickets_available), 0) AS ticket_count
           FROM events e
           LEFT JOIN sellers s ON e.id = s.event_id
         `;

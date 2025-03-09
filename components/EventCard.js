@@ -23,7 +23,7 @@ export default function EventCard({ event }) {
         
         {/* Ticket count badge */}
         <div className="absolute top-4 right-4 bg-black bg-opacity-80 backdrop-blur-sm text-white text-xs font-bold px-4 py-1.5 rounded-full">
-          {event.seller_count || 0} tickets
+          {event.ticket_count || 0} tickets
         </div>
       </div>
       
